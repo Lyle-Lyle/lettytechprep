@@ -23,10 +23,13 @@ The project follows a step-by-step development strategy, divided into three phas
 
 ![image](https://github.com/user-attachments/assets/049d6150-19b6-4c85-b86b-751d0af07029)
 
-2）In the second phase, the project expanded its functionality by incorporating several mainstream enterprise backend technologies, such as Redis caching and advanced data structures, Elasticsearch search engine, Druid connection pool, concurrent programming, and hot key detection.
+2）In the second phase, the project expanded its functionality by incorporating several mainstream enterprise backend technologies, such as Redis caching and advanced data structures, Elasticsearch search engine, Druid connection pool, concurrent programming, and Hotkey detection.
 
 3）In the third phase, the project focused on optimizing security with implementations such as traffic control and circuit breaking using Sentinel, dynamic IP blacklisting/whitelisting with Nacos, conflict detection for simultaneous logins using Sa-Token, and multi-level anti-scraping strategies based on Redis. The final goal was to launch the project and ensure its availability.
-![image](https://github.com/user-attachments/assets/dd4328bf-1595-4c8a-8341-34fb7adf969d)
+![image](https://github.com/user-attachments/assets/1252deae-b223-403a-ab10-c644c08ced1b)
+
+
+![image](https://github.com/user-attachments/assets/94f61583-8160-43aa-a209-b8166e40ed75)
 
 
 
