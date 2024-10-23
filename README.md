@@ -1,4 +1,4 @@
-# LyleCoupon
+# Lyletechprep
 
 ![License](https://img.shields.io/github/license/Lyle-Lyle/lettytechprep)
 ![Stars](https://img.shields.io/github/stars/Lyle-Lyle/lettytechprep)
