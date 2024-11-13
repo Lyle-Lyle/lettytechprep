@@ -15,15 +15,15 @@ interface Props {
  * @param fields
  */
 const handleAdd = async (fields: API.QuestionAddRequest) => {
-  const hide = message.loading('正在添加');
+  const hide = message.loading('adding');
   try {
     await addQuestionUsingPost(fields);
     hide();
-    message.success('创建成功');
+    message.success('done!');
     return true;
   } catch (error: any) {
     hide();
-    message.error('创建失败，' + error.message);
+    message.error('failed ' + error.message);
     return false;
   }
 };
@@ -39,7 +39,7 @@ const CreateModal: React.FC<Props> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={'创建'}
+      title={'create'}
       open={visible}
       footer={null}
       onCancel={() => {
@@ -47,7 +47,7 @@ const CreateModal: React.FC<Props> = (props) => {
       }}
     >
       <ProTable
-        type="form"
+        type='form'
         columns={columns}
         onSubmit={async (values: API.QuestionAddRequest) => {
           const success = await handleAdd(values);

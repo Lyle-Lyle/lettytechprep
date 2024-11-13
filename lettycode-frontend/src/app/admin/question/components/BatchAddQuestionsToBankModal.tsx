@@ -1,7 +1,7 @@
-import { Button, Form, message, Modal, Select } from "antd";
-import React, { useEffect, useState } from "react";
-import { listQuestionBankVoByPageUsingPost } from "@/api/questionBankController";
-import { batchAddQuestionsToBankUsingPost } from "@/api/questionBankQuestionController";
+import { Button, Form, message, Modal, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { listQuestionBankVoByPageUsingPost } from '@/api/questionBankController';
+import { batchAddQuestionsToBankUsingPost } from '@/api/questionBankQuestionController';
 
 interface Props {
   questionIdList?: number[];
@@ -28,7 +28,7 @@ const BatchAddQuestionsToBankModal: React.FC<Props> = (props) => {
    * @param values
    */
   const doSubmit = async (values: API.QuestionBankQuestionBatchAddRequest) => {
-    const hide = message.loading("正在操作");
+    const hide = message.loading('ing...');
     const questionBankId = values.questionBankId;
     if (!questionBankId) {
       return;
@@ -39,11 +39,11 @@ const BatchAddQuestionsToBankModal: React.FC<Props> = (props) => {
         questionIdList,
       });
       hide();
-      message.success("操作成功");
+      message.success('done!');
       onSubmit?.();
     } catch (error: any) {
       hide();
-      message.error("操作失败，" + error.message);
+      message.error('failed ' + error.message);
     }
   };
 
@@ -55,12 +55,12 @@ const BatchAddQuestionsToBankModal: React.FC<Props> = (props) => {
     try {
       const res = await listQuestionBankVoByPageUsingPost({
         pageSize,
-        sortField: "createTime",
-        sortOrder: "descend",
+        sortField: 'createTime',
+        sortOrder: 'descend',
       });
       setQuestionBankList(res.data?.records ?? []);
     } catch (e) {
-      message.error("获取题库列表失败，" + e.message);
+      message.error('failed ' + e.message);
     }
   };
 
@@ -71,7 +71,7 @@ const BatchAddQuestionsToBankModal: React.FC<Props> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={"批量向题库添加题目"}
+      title={'batch add questions'}
       open={visible}
       footer={null}
       onCancel={() => {
@@ -79,9 +79,9 @@ const BatchAddQuestionsToBankModal: React.FC<Props> = (props) => {
       }}
     >
       <Form form={form} style={{ marginTop: 24 }} onFinish={doSubmit}>
-        <Form.Item label="选择题库" name="questionBankId">
+        <Form.Item label='select questionBank' name='questionBankId'>
           <Select
-            style={{ width: "100%" }}
+            style={{ width: '100%' }}
             options={questionBankList.map((questionBank) => {
               return {
                 label: questionBank.title,
@@ -91,8 +91,8 @@ const BatchAddQuestionsToBankModal: React.FC<Props> = (props) => {
           />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
-            提交
+          <Button type='primary' htmlType='submit'>
+            submit
           </Button>
         </Form.Item>
       </Form>

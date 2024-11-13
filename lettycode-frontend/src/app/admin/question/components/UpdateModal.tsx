@@ -1,7 +1,7 @@
-import { updateQuestionUsingPost } from "@/api/questionController";
-import { ProColumns, ProTable } from "@ant-design/pro-components";
-import { message, Modal } from "antd";
-import React from "react";
+import { updateQuestionUsingPost } from '@/api/questionController';
+import { ProColumns, ProTable } from '@ant-design/pro-components';
+import { message, Modal } from 'antd';
+import React from 'react';
 
 interface Props {
   oldData?: API.Question;
@@ -17,15 +17,15 @@ interface Props {
  * @param fields
  */
 const handleUpdate = async (fields: API.QuestionUpdateRequest) => {
-  const hide = message.loading("正在更新");
+  const hide = message.loading('updating');
   try {
     await updateQuestionUsingPost(fields);
     hide();
-    message.success("更新成功");
+    message.success('done!');
     return true;
   } catch (error: any) {
     hide();
-    message.error("更新失败，" + error.message);
+    message.error('failed' + error.message);
     return false;
   }
 };
@@ -51,7 +51,7 @@ const UpdateModal: React.FC<Props> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={"更新"}
+      title={'update'}
       open={visible}
       footer={null}
       onCancel={() => {
@@ -59,7 +59,7 @@ const UpdateModal: React.FC<Props> = (props) => {
       }}
     >
       <ProTable
-        type="form"
+        type='form'
         columns={columns}
         form={{
           initialValues: initValues,

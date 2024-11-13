@@ -1,12 +1,12 @@
-"use client";
-import { searchQuestionVoByPageUsingPost } from "@/api/questionController";
-import type { ActionType, ProColumns } from "@ant-design/pro-components";
-import { ProTable } from "@ant-design/pro-components";
-import React, { useRef, useState } from "react";
-import TagList from "@/components/TagList";
-import { TablePaginationConfig } from "antd";
-import Link from "next/link";
-import "./index.css";
+'use client';
+import { searchQuestionVoByPageUsingPost } from '@/api/questionController';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
+import React, { useRef, useState } from 'react';
+import TagList from '@/components/TagList';
+import { TablePaginationConfig } from 'antd';
+import Link from 'next/link';
+import './index.css';
 
 interface Props {
   // 默认值（用于展示服务端渲染的数据）
@@ -26,7 +26,7 @@ const QuestionTable: React.FC = (props: Props) => {
   const actionRef = useRef<ActionType>();
   // 题目列表
   const [questionList, setQuestionList] = useState<API.QuestionVO[]>(
-    defaultQuestionList || [],
+    defaultQuestionList || []
   );
   // 题目总数
   const [total, setTotal] = useState<number>(defaultTotal || 0);
@@ -38,26 +38,26 @@ const QuestionTable: React.FC = (props: Props) => {
    */
   const columns: ProColumns<API.QuestionVO>[] = [
     {
-      title: "搜索",
-      dataIndex: "searchText",
-      valueType: "text",
+      title: 'search',
+      dataIndex: 'searchText',
+      valueType: 'text',
       hideInTable: true,
     },
     {
-      title: "标题",
-      dataIndex: "title",
-      valueType: "text",
+      title: 'title',
+      dataIndex: 'title',
+      valueType: 'text',
       hideInSearch: true,
       render: (_, record) => {
         return <Link href={`/question/${record.id}`}>{record.title}</Link>;
       },
     },
     {
-      title: "标签",
-      dataIndex: "tagList",
-      valueType: "select",
+      title: 'tags',
+      dataIndex: 'tagList',
+      valueType: 'select',
       fieldProps: {
-        mode: "tags",
+        mode: 'tags',
       },
       render: (_, record) => {
         return <TagList tagList={record.tagList} />;
@@ -66,12 +66,12 @@ const QuestionTable: React.FC = (props: Props) => {
   ];
 
   return (
-    <div className="question-table">
+    <div className='question-table'>
       <ProTable<API.QuestionVO>
         actionRef={actionRef}
-        size="large"
+        size='large'
         search={{
-          labelWidth: "auto",
+          labelWidth: 'auto',
         }}
         form={{
           initialValues: defaultSearchParams,
@@ -80,7 +80,7 @@ const QuestionTable: React.FC = (props: Props) => {
         pagination={
           {
             pageSize: 12,
-            showTotal: (total) => `总共 ${total} 条`,
+            showTotal: (total) => ` ${total} in total`,
             showSizeChanger: false,
             total,
           } as TablePaginationConfig
@@ -95,8 +95,8 @@ const QuestionTable: React.FC = (props: Props) => {
             }
           }
 
-          const sortField = Object.keys(sort)?.[0] || "createTime";
-          const sortOrder = sort?.[sortField] || "descend";
+          const sortField = Object.keys(sort)?.[0] || 'createTime';
+          const sortOrder = sort?.[sortField] || 'descend';
 
           const { data, code } = await searchQuestionVoByPageUsingPost({
             ...params,

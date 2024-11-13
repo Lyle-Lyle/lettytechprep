@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 题库题目关联视图
+ * 题库题目关联视图 返回给前端的类
  */
 @Data
 public class QuestionBankQuestionVO implements Serializable {

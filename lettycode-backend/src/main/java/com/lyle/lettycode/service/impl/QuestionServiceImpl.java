@@ -221,8 +221,11 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
         // 根据题库查询题目列表接口
         Long questionBankId = questionQueryRequest.getQuestionBankId();
         if (questionBankId != null) {
-            // 查询题库内的题目 id
+            // 拿到题库id
+            // 根据题库id查询，只select了题目id，因为只需要题目id
+            // 拿到题目list之后，转为set，再在set中查找需要的id
             LambdaQueryWrapper<QuestionBankQuestion> lambdaQueryWrapper = Wrappers.lambdaQuery(QuestionBankQuestion.class)
+                    // 这里是只select了questionId，不用查所有的字段，提高性能
                     .select(QuestionBankQuestion::getQuestionId)
                     .eq(QuestionBankQuestion::getQuestionBankId, questionBankId);
             List<QuestionBankQuestion> questionList = questionBankQuestionService.list(lambdaQueryWrapper);
@@ -231,7 +234,8 @@ public class QuestionServiceImpl extends ServiceImpl<QuestionMapper, Question> i
                 Set<Long> questionIdSet = questionList.stream()
                         .map(QuestionBankQuestion::getQuestionId)
                         .collect(Collectors.toSet());
-                // 复用原有题目表的查询条件
+                // 复用原有题目表的查询条件,只查询id在questionSet中的
+                // in的性能问题：in会走索引的
                 queryWrapper.in("id", questionIdSet);
             } else {
                 // 题库为空，则返回空列表

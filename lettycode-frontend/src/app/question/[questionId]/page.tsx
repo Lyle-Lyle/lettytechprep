@@ -1,8 +1,8 @@
-"use server";
-import { message } from "antd";
-import { getQuestionVoByIdUsingGet } from "@/api/questionController";
-import QuestionCard from "@/components/QuestionCard";
-import "./index.css";
+'use server';
+import { message } from 'antd';
+import { getQuestionVoByIdUsingGet } from '@/api/questionController';
+import QuestionCard from '@/components/QuestionCard';
+import './index.css';
 
 /**
  * 题目详情页
@@ -19,7 +19,8 @@ export default async function QuestionPage({ params }) {
     });
     question = res.data;
   } catch (e) {
-    message.error("获取题目详情失败，" + e.message);
+    // 说客户端error 但是server没法获取会报错
+    message.error('获取题目详情失败，' + e.message);
   }
   // 错误处理
   if (!question) {
@@ -27,7 +28,7 @@ export default async function QuestionPage({ params }) {
   }
 
   return (
-    <div id="questionPage">
+    <div id='questionPage'>
       <QuestionCard question={question} />
     </div>
   );

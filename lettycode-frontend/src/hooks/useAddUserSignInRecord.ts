@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
-import { message } from "antd";
-import { addUserSignInUsingPost } from "@/api/userController";
+import { useEffect, useState } from 'react';
+import { message } from 'antd';
+import { addUserSignInUsingPost } from '@/api/userController';
 
 /**
  * 添加用户刷题签到记录钩子
@@ -17,7 +17,7 @@ const useAddUserSignInRecord = () => {
     try {
       await addUserSignInUsingPost({});
     } catch (e) {
-      message.error("获取刷题签到记录失败，" + e.message);
+      message.error('failed' + e.message);
     }
     setLoading(false);
   };

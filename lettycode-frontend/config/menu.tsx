@@ -6,40 +6,40 @@ import ACCESS_ENUM from '@/access/accessEnum';
 export const menus = [
   {
     path: '/',
-    name: '主页',
+    name: 'Explore',
   },
   {
     path: '/banks',
-    name: '题库',
+    name: 'Topics',
   },
   {
     path: '/questions',
-    name: '题目',
+    name: 'Questions',
   },
   {
-    name: '面试鸭',
-    path: 'https://mianshiya.com',
+    name: 'lettytechprep',
+    path: 'https://github.com/Lyle-Lyle/lettytechprep',
     target: '_blank',
   },
   {
     path: '/admin',
-    name: '管理',
+    name: 'admin',
     icon: <CrownOutlined />,
     access: ACCESS_ENUM.ADMIN,
     children: [
       {
         path: '/admin/user',
-        name: '用户管理',
+        name: 'user admin',
         access: ACCESS_ENUM.ADMIN,
       },
       {
         path: '/admin/bank',
-        name: '题库管理',
+        name: 'question banks admin',
         access: ACCESS_ENUM.ADMIN,
       },
       {
         path: '/admin/question',
-        name: '题目管理',
+        name: 'questions admin',
         access: ACCESS_ENUM.ADMIN,
       },
     ],
@@ -57,10 +57,13 @@ export const findMenuItemByPath = (
   path: string
 ): MenuDataItem | null => {
   for (const menu of menus) {
+    // 直接找到菜单
     if (menu.path === path) {
       return menu;
     }
+    // 如果有children
     if (menu.children) {
+      // children又是一个数组所以再调用
       const matchedMenuItem = findMenuItemByPath(menu.children, path);
       if (matchedMenuItem) {
         return matchedMenuItem;

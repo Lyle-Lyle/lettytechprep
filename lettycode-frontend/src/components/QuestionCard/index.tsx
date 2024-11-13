@@ -1,10 +1,10 @@
-"use client";
-import { Card } from "antd";
-import Title from "antd/es/typography/Title";
-import TagList from "@/components/TagList";
-import MdViewer from "@/components/MdViewer";
-import useAddUserSignInRecord from "@/hooks/useAddUserSignInRecord";
-import "./index.css";
+'use client';
+import { Card } from 'antd';
+import Title from 'antd/es/typography/Title';
+import TagList from '@/components/TagList';
+import MdViewer from '@/components/MdViewer';
+import useAddUserSignInRecord from '@/hooks/useAddUserSignInRecord';
+import './index.css';
 
 interface Props {
   question: API.QuestionVO;
@@ -22,7 +22,7 @@ const QuestionCard = (props: Props) => {
   useAddUserSignInRecord();
 
   return (
-    <div className="question-card">
+    <div className='question-card'>
       <Card>
         <Title level={1} style={{ fontSize: 24 }}>
           {question.title}
@@ -32,7 +32,7 @@ const QuestionCard = (props: Props) => {
         <MdViewer value={question.content} />
       </Card>
       <div style={{ marginBottom: 16 }} />
-      <Card title="推荐答案">
+      <Card title='Example'>
         <MdViewer value={question.answer} />
       </Card>
     </div>

@@ -1,21 +1,21 @@
-"use client";
-import { GithubFilled, LogoutOutlined, UserOutlined } from "@ant-design/icons";
-import { ProLayout } from "@ant-design/pro-components";
-import { Dropdown, message } from "antd";
-import React from "react";
-import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
-import Link from "next/link";
-import GlobalFooter from "@/components/GlobalFooter";
-import { menus } from "../../../config/menu";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@/stores";
-import getAccessibleMenus from "@/access/menuAccess";
-import { userLogoutUsingPost } from "@/api/userController";
-import { setLoginUser } from "@/stores/loginUser";
-import { DEFAULT_USER } from "@/constants/user";
-import SearchInput from "@/layouts/BasicLayout/components/SearchInput";
-import "./index.css";
+'use client';
+import { GithubFilled, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { ProLayout } from '@ant-design/pro-components';
+import { Dropdown, message } from 'antd';
+import React from 'react';
+import Image from 'next/image';
+import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
+import GlobalFooter from '@/components/GlobalFooter';
+import { menus } from '../../../config/menu';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '@/stores';
+import getAccessibleMenus from '@/access/menuAccess';
+import { userLogoutUsingPost } from '@/api/userController';
+import { setLoginUser } from '@/stores/loginUser';
+import { DEFAULT_USER } from '@/constants/user';
+import SearchInput from '@/layouts/BasicLayout/components/SearchInput';
+import './index.css';
 
 interface Props {
   children: React.ReactNode;
@@ -39,48 +39,50 @@ export default function BasicLayout({ children }: Props) {
   const userLogout = async () => {
     try {
       await userLogoutUsingPost();
-      message.success("已退出登录");
+      message.success('Signed out');
+      // 把全局状态设置为
       dispatch(setLoginUser(DEFAULT_USER));
-      router.push("/user/login");
+      router.push('/user/login');
     } catch (e) {
-      message.error("操作失败，" + e.message);
+      message.error('error' + e.message);
     }
   };
 
   return (
     <div
-      id="basicLayout"
+      id='basicLayout'
       style={{
-        height: "100vh",
-        overflow: "auto",
+        height: '100vh',
+        overflow: 'auto',
       }}
     >
       <ProLayout
-        title="面试鸭刷题平台"
-        layout="top"
+        title='LyleTechPrep'
+        layout='top'
         logo={
           <Image
-            src="/assets/logo.png"
+            src='/assets/logo.png'
             height={32}
             width={32}
-            alt="面试鸭刷题网站 - 程序员鱼皮"
+            alt='lyleTechPrep'
           />
         }
         location={{
           pathname,
         }}
         avatarProps={{
-          src: loginUser.userAvatar || "/assets/logo.png",
-          size: "small",
-          title: loginUser.userName || "鱼皮鸭",
+          src: loginUser.userAvatar || '/assets/logo.png',
+          size: 'small',
+          title: loginUser.userName || 'Lyle',
           render: (props, dom) => {
             if (!loginUser.id) {
               return (
                 <div
                   onClick={() => {
-                    router.push("/user/login");
+                    router.push('/user/login');
                   }}
                 >
+                  {/* 这个dom属性 */}
                   {dom}
                 </div>
               );
@@ -90,22 +92,22 @@ export default function BasicLayout({ children }: Props) {
                 menu={{
                   items: [
                     {
-                      key: "userCenter",
+                      key: 'userCenter',
                       icon: <UserOutlined />,
-                      label: "个人中心",
+                      label: 'Profile',
                     },
                     {
-                      key: "logout",
+                      key: 'logout',
                       icon: <LogoutOutlined />,
-                      label: "退出登录",
+                      label: 'Logout',
                     },
                   ],
                   onClick: async (event: { key: React.Key }) => {
                     const { key } = event;
-                    if (key === "logout") {
+                    if (key === 'logout') {
                       userLogout();
-                    } else if (key === "userCenter") {
-                      router.push("/user/center");
+                    } else if (key === 'userCenter') {
+                      router.push('/user/center');
                     }
                   },
                 }}
@@ -115,16 +117,19 @@ export default function BasicLayout({ children }: Props) {
             );
           },
         }}
+        // 右上角操作区
         actionsRender={(props) => {
+          // 屏幕尺寸小就不会显示右上角操作区了
           if (props.isMobile) return [];
           return [
-            <SearchInput key="search" />,
+            // React中返回数组每个元素都要一个key
+            <SearchInput key='search' />,
             <a
-              key="github"
-              href="https://github.com/liyupi/mianshiya-next"
-              target="_blank"
+              key='github'
+              href='https://github.com/Lyle-Lyle/lettytechprep'
+              target='_blank'
             >
-              <GithubFilled key="GithubFilled" />
+              <GithubFilled key='GithubFilled' />
             </a>,
           ];
         }}
@@ -143,15 +148,19 @@ export default function BasicLayout({ children }: Props) {
         onMenuHeaderClick={(e) => console.log(e)}
         // 定义有哪些菜单
         menuDataRender={() => {
+          // 获得可以显示的菜单（有权限访问的菜单，根据当前登录的用户）
           return getAccessibleMenus(loginUser, menus);
         }}
         // 定义了菜单项如何渲染
         menuItemRender={(item, dom) => (
-          <Link href={item.path || "/"} target={item.target}>
+          // 这里用Link组件代替了普通的文本，导航栏文字就是链接了
+          // Next.js提供的Link组件 优化了不必要的跳转
+          <Link href={item.path || '/'} target={item.target}>
             {dom}
           </Link>
         )}
       >
+        {/* 不同的页面展示不同的内容 */}
         {children}
       </ProLayout>
     </div>

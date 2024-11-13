@@ -1,15 +1,15 @@
-"use client";
-import CreateModal from "./components/CreateModal";
-import UpdateModal from "./components/UpdateModal";
+'use client';
+import CreateModal from './components/CreateModal';
+import UpdateModal from './components/UpdateModal';
 import {
   deleteQuestionBankUsingPost,
   listQuestionBankByPageUsingPost,
-} from "@/api/questionBankController";
-import { PlusOutlined } from "@ant-design/icons";
-import type { ActionType, ProColumns } from "@ant-design/pro-components";
-import { PageContainer, ProTable } from "@ant-design/pro-components";
-import { Button, message, Space, Typography } from "antd";
-import React, { useRef, useState } from "react";
+} from '@/api/questionBankController';
+import { PlusOutlined } from '@ant-design/icons';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
+import { PageContainer, ProTable } from '@ant-design/pro-components';
+import { Button, message, Space, Typography } from 'antd';
+import React, { useRef, useState } from 'react';
 import './index.css';
 
 /**
@@ -32,19 +32,19 @@ const QuestionBankAdminPage: React.FC = () => {
    * @param row
    */
   const handleDelete = async (row: API.QuestionBank) => {
-    const hide = message.loading("正在删除");
+    const hide = message.loading('deleting');
     if (!row) return true;
     try {
       await deleteQuestionBankUsingPost({
         id: row.id as any,
       });
       hide();
-      message.success("删除成功");
+      message.success('done');
       actionRef?.current?.reload();
       return true;
     } catch (error: any) {
       hide();
-      message.error("删除失败，" + error.message);
+      message.error('failed ' + error.message);
       return false;
     }
   };
@@ -54,70 +54,70 @@ const QuestionBankAdminPage: React.FC = () => {
    */
   const columns: ProColumns<API.QuestionBank>[] = [
     {
-      title: "id",
-      dataIndex: "id",
-      valueType: "text",
+      title: 'id',
+      dataIndex: 'id',
+      valueType: 'text',
       hideInForm: true,
     },
     {
-      title: "标题",
-      dataIndex: "title",
-      valueType: "text",
+      title: 'title',
+      dataIndex: 'title',
+      valueType: 'text',
     },
     {
-      title: "描述",
-      dataIndex: "description",
-      valueType: "text",
+      title: 'description',
+      dataIndex: 'description',
+      valueType: 'text',
     },
     {
-      title: "图片",
-      dataIndex: "picture",
-      valueType: "image",
+      title: 'pic',
+      dataIndex: 'picture',
+      valueType: 'image',
       fieldProps: {
         width: 64,
       },
       hideInSearch: true,
     },
     {
-      title: "创建时间",
+      title: 'createTime',
       sorter: true,
-      dataIndex: "createTime",
-      valueType: "dateTime",
+      dataIndex: 'createTime',
+      valueType: 'dateTime',
       hideInSearch: true,
       hideInForm: true,
     },
     {
-      title: "编辑时间",
+      title: 'editTime',
       sorter: true,
-      dataIndex: "editTime",
-      valueType: "dateTime",
+      dataIndex: 'editTime',
+      valueType: 'dateTime',
       hideInSearch: true,
       hideInForm: true,
     },
     {
-      title: "更新时间",
+      title: 'updateTime',
       sorter: true,
-      dataIndex: "updateTime",
-      valueType: "dateTime",
+      dataIndex: 'updateTime',
+      valueType: 'dateTime',
       hideInSearch: true,
       hideInForm: true,
     },
     {
-      title: "操作",
-      dataIndex: "option",
-      valueType: "option",
+      title: 'options',
+      dataIndex: 'option',
+      valueType: 'option',
       render: (_, record) => (
-        <Space size="middle">
+        <Space size='middle'>
           <Typography.Link
             onClick={() => {
               setCurrentRow(record);
               setUpdateModalVisible(true);
             }}
           >
-            修改
+            edit
           </Typography.Link>
-          <Typography.Link type="danger" onClick={() => handleDelete(record)}>
-            删除
+          <Typography.Link type='danger' onClick={() => handleDelete(record)}>
+            delete
           </Typography.Link>
         </Space>
       ),
@@ -127,21 +127,21 @@ const QuestionBankAdminPage: React.FC = () => {
   return (
     <PageContainer>
       <ProTable<API.QuestionBank>
-        headerTitle={"查询表格"}
+        headerTitle={'table'}
         actionRef={actionRef}
-        rowKey="key"
+        rowKey='key'
         search={{
           labelWidth: 120,
         }}
         toolBarRender={() => [
           <Button
-            type="primary"
-            key="primary"
+            type='primary'
+            key='primary'
             onClick={() => {
               setCreateModalVisible(true);
             }}
           >
-            <PlusOutlined /> 新建
+            <PlusOutlined /> create
           </Button>,
         ]}
         request={async (params, sort, filter) => {

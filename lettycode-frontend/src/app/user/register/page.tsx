@@ -1,13 +1,13 @@
-"use client";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { LoginForm, ProFormText } from "@ant-design/pro-components";
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { userRegisterUsingPost } from "@/api/userController";
-import { message } from "antd";
-import { ProForm } from "@ant-design/pro-form/lib";
-import { useRouter } from "next/navigation";
+'use client';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { userRegisterUsingPost } from '@/api/userController';
+import { message } from 'antd';
+import { ProForm } from '@ant-design/pro-form/lib';
+import { useRouter } from 'next/navigation';
 import './index.css';
 
 /**
@@ -25,82 +25,87 @@ const UserRegisterPage: React.FC = () => {
     try {
       const res = await userRegisterUsingPost(values);
       if (res.data) {
-        message.success("注册成功，请登录");
+        message.success('Successful! Please login');
         // 前往登录页
-        router.replace("/user/login");
+        router.replace('/user/login');
         form.resetFields();
       }
     } catch (e) {
-      message.error("注册失败，" + e.message);
+      message.error('error' + e.message);
     }
   };
 
   return (
-    <div id="userRegisterPage">
+    <div id='userRegisterPage'>
       <LoginForm
         form={form}
         logo={
-          <Image src="/assets/logo.png" alt="面试鸭" height={44} width={44} />
+          <Image
+            src='/assets/logo.png'
+            alt='LyleTechPrep'
+            height={44}
+            width={44}
+          />
         }
-        title="面试鸭 - 用户注册"
-        subTitle="程序员面试刷题网站"
+        title='LyleTechPrep - Sign Up'
+        subTitle='LyleTechPrep'
         submitter={{
           searchConfig: {
-            submitText: "注册",
+            submitText: 'Sign up',
           },
         }}
         onFinish={doSubmit}
       >
         <ProFormText
-          name="userAccount"
+          name='userAccount'
           fieldProps={{
-            size: "large",
+            size: 'large',
             prefix: <UserOutlined />,
           }}
-          placeholder={"请输入用户账号"}
+          placeholder={'account'}
           rules={[
             {
               required: true,
-              message: "请输入用户账号!",
+              message: 'Enter account',
             },
           ]}
         />
         <ProFormText.Password
-          name="userPassword"
+          name='userPassword'
           fieldProps={{
-            size: "large",
+            size: 'large',
             prefix: <LockOutlined />,
           }}
-          placeholder={"请输入密码"}
+          placeholder={'password'}
           rules={[
             {
               required: true,
-              message: "请输入密码！",
+              message: 'enter password',
             },
           ]}
         />
         <ProFormText.Password
-          name="checkPassword"
+          name='checkPassword'
           fieldProps={{
-            size: "large",
+            size: 'large',
             prefix: <LockOutlined />,
           }}
-          placeholder={"请输入确认密码"}
+          placeholder={'checkPassword'}
           rules={[
             {
               required: true,
-              message: "请输入确认密码！",
+              message: 'confirm password',
             },
           ]}
         />
         <div
           style={{
             marginBlockEnd: 24,
-            textAlign: "end",
+            textAlign: 'end',
           }}
         >
-          已有账号？
-          <Link href={"/user/login"}>去登录</Link>
+          Already have an acount?
+          <Link href={'/user/login'}>Sign in</Link>
         </div>
       </LoginForm>
     </div>

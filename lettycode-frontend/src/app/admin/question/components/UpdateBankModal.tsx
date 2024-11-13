@@ -1,11 +1,11 @@
-import { Form, message, Modal, Select } from "antd";
-import React, { useEffect, useState } from "react";
+import { Form, message, Modal, Select } from 'antd';
+import React, { useEffect, useState } from 'react';
 import {
   addQuestionBankQuestionUsingPost,
   listQuestionBankQuestionVoByPageUsingPost,
   removeQuestionBankQuestionUsingPost,
-} from "@/api/questionBankQuestionController";
-import { listQuestionBankVoByPageUsingPost } from "@/api/questionBankController";
+} from '@/api/questionBankQuestionController';
+import { listQuestionBankVoByPageUsingPost } from '@/api/questionBankController';
 
 interface Props {
   questionId?: number;
@@ -34,9 +34,9 @@ const UpdateBankModal: React.FC<Props> = (props) => {
       });
       const list = (res.data?.records ?? []).map((item) => item.questionBankId);
       console.log(list);
-      form.setFieldValue("questionBankIdList" as any, list);
+      form.setFieldValue('questionBankIdList' as any, list);
     } catch (e) {
-      message.error("获取题目所属题库列表失败，" + e.message);
+      message.error('failed to get list of questionbank ' + e.message);
     }
   };
 
@@ -54,12 +54,12 @@ const UpdateBankModal: React.FC<Props> = (props) => {
     try {
       const res = await listQuestionBankVoByPageUsingPost({
         pageSize,
-        sortField: "createTime",
-        sortOrder: "descend",
+        sortField: 'createTime',
+        sortOrder: 'descend',
       });
       setQuestionBankList(res.data?.records ?? []);
     } catch (e) {
-      message.error("获取题库列表失败，" + e.message);
+      message.error('failed to get list of questionbank ' + e.message);
     }
   };
 
@@ -70,7 +70,7 @@ const UpdateBankModal: React.FC<Props> = (props) => {
   return (
     <Modal
       destroyOnClose
-      title={"更新所属题库"}
+      title={'update questionbank'}
       open={visible}
       footer={null}
       onCancel={() => {
@@ -78,10 +78,10 @@ const UpdateBankModal: React.FC<Props> = (props) => {
       }}
     >
       <Form form={form} style={{ marginTop: 24 }}>
-        <Form.Item label="所属题库" name="questionBankIdList">
+        <Form.Item label='questionbank' name='questionBankIdList'>
           <Select
-            mode="multiple"
-            style={{ width: "100%" }}
+            mode='multiple'
+            style={{ width: '100%' }}
             options={questionBankList.map((questionBank) => {
               return {
                 label: questionBank.title,
@@ -89,31 +89,31 @@ const UpdateBankModal: React.FC<Props> = (props) => {
               };
             })}
             onSelect={async (value) => {
-              const hide = message.loading("正在更新");
+              const hide = message.loading('updating');
               try {
                 await addQuestionBankQuestionUsingPost({
                   questionId,
                   questionBankId: value,
                 });
                 hide();
-                message.success("绑定题库成功");
+                message.success('done!');
               } catch (error: any) {
                 hide();
-                message.error("绑定题库失败，" + error.message);
+                message.error('failed ' + error.message);
               }
             }}
             onDeselect={async (value) => {
-              const hide = message.loading("正在更新");
+              const hide = message.loading('updating');
               try {
                 await removeQuestionBankQuestionUsingPost({
                   questionId,
                   questionBankId: value,
                 });
                 hide();
-                message.success("取消绑定题库成功");
+                message.success('done!');
               } catch (error: any) {
                 hide();
-                message.error("取消绑定题库失败，" + error.message);
+                message.error('failed ' + error.message);
               }
             }}
           />

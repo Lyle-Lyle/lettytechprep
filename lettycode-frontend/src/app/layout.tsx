@@ -1,13 +1,13 @@
-"use client";
-import { AntdRegistry } from "@ant-design/nextjs-registry";
-import BasicLayout from "@/layouts/BasicLayout";
-import React, { useCallback, useEffect } from "react";
-import { Provider, useDispatch } from "react-redux";
-import store, { AppDispatch } from "@/stores";
-import { getLoginUserUsingGet } from "@/api/userController";
-import AccessLayout from "@/access/AccessLayout";
-import { setLoginUser } from "@/stores/loginUser";
-import "./globals.css";
+'use client';
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+import BasicLayout from '@/layouts/BasicLayout';
+import React, { useCallback, useEffect } from 'react';
+import { Provider, useDispatch } from 'react-redux';
+import store, { AppDispatch } from '@/stores';
+import { getLoginUserUsingGet } from '@/api/userController';
+import AccessLayout from '@/access/AccessLayout';
+import { setLoginUser } from '@/stores/loginUser';
+import './globals.css';
 
 /**
  * 全局初始化逻辑
@@ -21,10 +21,11 @@ const InitLayout: React.FC<
 > = ({ children }) => {
   const dispatch = useDispatch<AppDispatch>();
   // 初始化全局用户状态
+  // 缓存函数，减少重复渲染
   const doInitLoginUser = useCallback(async () => {
     const res = await getLoginUserUsingGet();
     if (res.data) {
-      // 更新全局用户状态
+      // 登录之后要更新全局用户状态
       dispatch(setLoginUser(res.data));
     } else {
       // 仅用于测试
@@ -53,7 +54,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh">
+    <html lang='zh'>
       <body>
         <AntdRegistry>
           <Provider store={store}>

@@ -1,4 +1,4 @@
-import { Button, Result } from "antd";
+import { Button, Result } from 'antd';
 
 /**
  * 无权限访问的页面
@@ -6,13 +6,14 @@ import { Button, Result } from "antd";
  */
 const Forbidden = () => {
   return (
+    // antd的result组件
     <Result
       status={403}
-      title="403"
-      subTitle="对不起，你无权访问该页面。"
+      title='403'
+      subTitle='Sorry, no permission'
       extra={
-        <Button type="primary" href="/">
-          返回首页
+        <Button type='primary' href='/'>
+          Home
         </Button>
       }
     />

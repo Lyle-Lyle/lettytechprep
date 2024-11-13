@@ -1,5 +1,5 @@
-import { menus } from "../../config/menu";
-import checkAccess from "@/access/checkAccess";
+import { menus } from '../../config/menu';
+import checkAccess from '@/access/checkAccess';
 
 /**
  * 获取有权限、可访问的菜单（递归）
@@ -11,6 +11,7 @@ const getAccessibleMenus = (loginUser: API.LoginUserVO, menuItems = menus) => {
     if (!checkAccess(loginUser, item.access)) {
       return false;
     }
+    // 如果有孩子获取孩子的菜单
     if (item.children) {
       item.children = getAccessibleMenus(loginUser, item.children);
     }

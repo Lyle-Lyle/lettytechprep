@@ -1,6 +1,6 @@
-import { Input } from "antd";
-import { useRouter } from "next/navigation";
-import "./index.css";
+import { Input } from 'antd';
+import { useRouter } from 'next/navigation';
+import './index.css';
 
 interface Props {}
 
@@ -13,11 +13,11 @@ const SearchInput = (props: Props) => {
 
   return (
     <div
-      className="search-input"
+      className='search-input'
       aria-hidden
       style={{
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         marginInlineEnd: 24,
       }}
     >
@@ -26,7 +26,7 @@ const SearchInput = (props: Props) => {
           borderRadius: 4,
           marginInlineEnd: 12,
         }}
-        placeholder="搜索题目"
+        placeholder='Search...'
         onSearch={(value) => {
           router.push(`/questions?q=${value}`);
         }}

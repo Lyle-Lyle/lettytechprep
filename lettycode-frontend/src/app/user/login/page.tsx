@@ -1,16 +1,16 @@
-"use client";
-import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { LoginForm, ProFormText } from "@ant-design/pro-components";
-import React from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { userLoginUsingPost } from "@/api/userController";
-import { message } from "antd";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/stores";
-import { setLoginUser } from "@/stores/loginUser";
-import { ProForm } from "@ant-design/pro-form/lib";
-import { useRouter } from "next/navigation";
+'use client';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { LoginForm, ProFormText } from '@ant-design/pro-components';
+import React from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { userLoginUsingPost } from '@/api/userController';
+import { message } from 'antd';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/stores';
+import { setLoginUser } from '@/stores/loginUser';
+import { ProForm } from '@ant-design/pro-form/lib';
+import { useRouter } from 'next/navigation';
 import './index.css';
 
 /**
@@ -29,64 +29,69 @@ const UserLoginPage: React.FC = () => {
     try {
       const res = await userLoginUsingPost(values);
       if (res.data) {
-        message.success("登录成功");
+        message.success('Successful!');
         // 保存用户登录状态
         dispatch(setLoginUser(res.data));
-        router.replace("/");
+        router.replace('/');
         form.resetFields();
       }
     } catch (e) {
-      message.error("登录失败，" + e.message);
+      message.error('error' + e.message);
     }
   };
 
   return (
-    <div id="userLoginPage">
+    <div id='userLoginPage'>
       <LoginForm
         form={form}
         logo={
-          <Image src="/assets/logo.png" alt="面试鸭" height={44} width={44} />
+          <Image
+            src='/assets/logo.png'
+            alt='LyleTechPrep'
+            height={44}
+            width={44}
+          />
         }
-        title="面试鸭 - 用户登录"
-        subTitle="程序员面试刷题网站"
+        title='LyleTechPrep - Sign in'
+        subTitle='LyleTechPrep'
         onFinish={doSubmit}
       >
         <ProFormText
-          name="userAccount"
+          name='userAccount'
           fieldProps={{
-            size: "large",
+            size: 'large',
             prefix: <UserOutlined />,
           }}
-          placeholder={"请输入用户账号"}
+          placeholder={'Account'}
           rules={[
             {
               required: true,
-              message: "请输入用户账号!",
+              message: 'Enter your Account!',
             },
           ]}
         />
         <ProFormText.Password
-          name="userPassword"
+          name='userPassword'
           fieldProps={{
-            size: "large",
+            size: 'large',
             prefix: <LockOutlined />,
           }}
-          placeholder={"请输入密码"}
+          placeholder={'password'}
           rules={[
             {
               required: true,
-              message: "请输入密码！",
+              message: 'Enter your password',
             },
           ]}
         />
         <div
           style={{
             marginBlockEnd: 24,
-            textAlign: "end",
+            textAlign: 'end',
           }}
         >
-          还没有账号？
-          <Link href={"/user/register"}>去注册</Link>
+          Create a new account
+          <Link href={'/user/register'}>Sign up</Link>
         </div>
       </LoginForm>
     </div>
